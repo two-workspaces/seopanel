@@ -3,5 +3,6 @@
   "short_name": "Seo Panel",
   "description": "Seo Panel 6: rank tracking, site audits, backlinks and SEO reports",
   "category": "Analytics",
-  "image": "https://raw.githubusercontent.com/seopanel/Seo-Panel/master/images/logo.jpg"
+  "image": "https://raw.githubusercontent.com/seopanel/Seo-Panel/master/images/logo.jpg",
+  "deploy_marker": "two-workspaces/seopanel"
 }
