@@ -26,7 +26,7 @@ RUN set -eux; \
 	curl -fsSL "https://github.com/seopanel/Seo-Panel/archive/refs/tags/${SEOPANEL_VERSION}.tar.gz" \
 		| tar -xz -C /var/www/html --strip-components=1 --no-same-owner; \
 	rm -rf /var/www/html/docker-compose.yml /var/www/html/sample_env /var/www/html/data/test.php; \
-	chown -R www-data: /var/www/html/tmp
+	chmod 755 /var/www/html; chown -R www-data: /var/www/html/tmp
 ENV SEOPANEL_VERSION=${SEOPANEL_VERSION}
 
 RUN { cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
