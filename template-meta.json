@@ -4,5 +4,7 @@
   "description": "Seo Panel 6: rank tracking, site audits, backlinks and SEO reports",
   "category": "Analytics",
   "image": "https://raw.githubusercontent.com/seopanel/Seo-Panel/master/images/logo.jpg",
-  "deploy_marker": "two-workspaces/seopanel"
+  "deploy_marker": "two-workspaces/seopanel",
+  "id": "23912e6f-c096-4de8-9a06-1a5de08f1d29",
+  "published": true
 }
