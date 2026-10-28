@@ -1,0 +1,102 @@
+{
+  "services": {
+    "c86bfd5d-f001-4b4a-8ff1-b521f4596b00": {
+      "icon": "https://raw.githubusercontent.com/seopanel/Seo-Panel/master/images/logo.jpg",
+      "name": "Seo Panel",
+      "build": {
+        "dockerfilePath": "Dockerfile"
+      },
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/healthz",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/two-workspaces/seopanel",
+        "rootDirectory": "/"
+      },
+      "variables": {
+        "PORT": {
+          "defaultValue": "8080",
+          "description": "Port Apache listens on - leave as is",
+          "isOptional": false
+        },
+        "SEOPANEL_URL": {
+          "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Site address. On a custom domain, set it to https://your.domain",
+          "isOptional": false
+        },
+        "SEOPANEL_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(20)}}",
+          "description": "Password for the 'spadmin' login, set on first boot only - change it in Seo Panel afterwards",
+          "isOptional": false
+        },
+        "SEOPANEL_ADMIN_EMAIL": {
+          "defaultValue": "admin@example.com",
+          "description": "Admin email, set on first boot only",
+          "isOptional": true
+        },
+        "DB_HOST": {
+          "defaultValue": "${{MariaDB.RAILWAY_PRIVATE_DOMAIN}}",
+          "description": "MariaDB host - private network only, leave as is",
+          "isOptional": false
+        },
+        "DB_PASSWORD": {
+          "defaultValue": "${{MariaDB.MARIADB_ROOT_PASSWORD}}",
+          "description": "MariaDB password - wired to the bundled MariaDB, leave as is",
+          "isOptional": false
+        },
+        "DB_NAME": {
+          "defaultValue": "${{MariaDB.MARIADB_DATABASE}}",
+          "description": "Database name - leave as is",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        }
+      }
+    },
+    "1ffee5c6-a28c-48e0-ac7a-196c34bee23c": {
+      "icon": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mariadb/mariadb-original.svg",
+      "name": "MariaDB",
+      "build": {},
+      "deploy": {
+        "startCommand": "docker-entrypoint.sh mariadbd --datadir=/var/lib/mysql/data --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --sql-mode=NO_ENGINE_SUBSTITUTION",
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "mariadb:11.8.9"
+      },
+      "variables": {
+        "MARIADB_ROOT_PASSWORD": {
+          "defaultValue": "${{secret(32)}}",
+          "description": "Auto-generated root password",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Time for MariaDB to shut down cleanly on redeploy",
+          "isOptional": false
+        },
+        "MARIADB_DATABASE": {
+          "defaultValue": "seopanel",
+          "description": "Database created on first start",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "1ffee5c6-a28c-48e0-ac7a-196c34bee23c": {
+          "mountPath": "/var/lib/mysql"
+        }
+      }
+    }
+  }
+}
