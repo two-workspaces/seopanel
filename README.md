@@ -25,7 +25,7 @@ The stack is two services: Seo Panel and a private MariaDB.
 
 ### Deployment Dependencies
 
-- [Seo Panel documentation](https://docs.seopanel.org/)
+- [Seo Panel documentation](https://www.seopanel.org/docs/)
 - [Template source on GitHub](https://github.com/two-workspaces/seopanel)
 
 ### Implementation Details
